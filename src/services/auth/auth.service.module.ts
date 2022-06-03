@@ -5,6 +5,7 @@ import { ConfigModule } from '../../config/config.module'
 import { DEFAULT_JWT_SECRET } from '../../constants'
 import { UsersServiceModule } from '../users/users.service.module'
 import { AuthService } from './auth.service'
+import { GoogleOauthStrategy } from './strategies/google.strategy'
 import { JwtStrategy } from './strategies/jwt.strategy'
 import { LocalStrategy } from './strategies/local.strategy'
 
@@ -18,7 +19,7 @@ import { LocalStrategy } from './strategies/local.strategy'
       signOptions: { expiresIn: '60s' },
     }),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, GoogleOauthStrategy],
   exports: [AuthService],
 })
 export class AuthServiceModule {}

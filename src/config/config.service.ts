@@ -1,6 +1,7 @@
-import * as Joi from '@hapi/joi'
+import { Logger } from '@nestjs/common'
 import * as dotenv from 'dotenv'
 import * as fs from 'fs'
+import * as Joi from 'joi'
 import {
   DEFAULT_BCRYPT_SALTS_NUMBER,
   DEFAULT_JWT_EXPIRES,
@@ -39,6 +40,9 @@ export class ConfigService {
       JWT_SECRET: Joi.string().default(DEFAULT_JWT_SECRET),
       JWT_EXPIRES: Joi.string().default(DEFAULT_JWT_EXPIRES),
       BCRYPT_SALTS_NUMBER: Joi.number().default(DEFAULT_BCRYPT_SALTS_NUMBER),
+      GOOGLE_CLIENT_ID: Joi.string().default(''),
+      GOOGLE_CLIENT_SECRET: Joi.string().default(''),
+      GOOGLE_REDIRECT_URL: Joi.string().default(''),
     })
 
     const { error, value: validatedEnvConfig } =
@@ -46,6 +50,8 @@ export class ConfigService {
     if (error) {
       throw new Error(`Config validation error: ${error.message}`)
     }
+
+    Logger.log(`Loading config [${envConfig.NODE_ENV}]`)
     return validatedEnvConfig
   }
 
@@ -67,5 +73,17 @@ export class ConfigService {
 
   get bcryptSaltsNumber(): number {
     return parseInt(this.envConfig.BCRYPT_SALTS_NUMBER, 10)
+  }
+
+  get googleClientID(): string {
+    return this.envConfig.GOOGLE_CLIENT_ID
+  }
+
+  get googleClientSecret(): string {
+    return this.envConfig.GOOGLE_CLIENT_SECRET
+  }
+
+  get googleRedirectURL(): string {
+    return this.envConfig.GOOGLE_REDIRECT_URL
   }
 }
