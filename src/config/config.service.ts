@@ -43,6 +43,7 @@ export class ConfigService {
       GOOGLE_CLIENT_ID: Joi.string().default(''),
       GOOGLE_CLIENT_SECRET: Joi.string().default(''),
       GOOGLE_REDIRECT_URL: Joi.string().default(''),
+      MONGODB_URI: Joi.string().default(''),
     })
 
     const { error, value: validatedEnvConfig } =
@@ -85,5 +86,9 @@ export class ConfigService {
 
   get googleRedirectURL(): string {
     return this.envConfig.GOOGLE_REDIRECT_URL
+  }
+
+  get mongoDbUri(): string {
+    return this.envConfig.MONGODB_URI
   }
 }

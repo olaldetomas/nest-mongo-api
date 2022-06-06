@@ -11,3 +11,6 @@ export const DEFAULT_JWT_SECRET = 'defaultSecret'
 export const DEFAULT_PORT = 3000
 export const DEFAULT_BCRYPT_SALTS_NUMBER = 10
 export const DEFAULT_JWT_EXPIRES = '1w'
+
+// Database
+export const DATABASE_CONNECTION = 'DATABASE_CONNECTION'
